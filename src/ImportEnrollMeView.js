@@ -10,17 +10,26 @@ import StorageManager from './StorageManager';
 
 function parse() {
   setInterval(() => {
-    const x = document.getElementsByClassName("fc-event-inner");
+
+    const days = [
+      document.getElementsByClassName("fc-mon")[0].style.width,
+      document.getElementsByClassName("fc-tue")[0].style.width,
+      document.getElementsByClassName("fc-wed")[0].style.width,
+      document.getElementsByClassName("fc-thu")[0].style.width,
+      document.getElementsByClassName("fc-fri")[0].style.width,
+    ]
+    const x = document.getElementsByClassName("fc-event");
     const flat = [];
     for (let i = 0; i < x.length; i++) {
       flat[i] =
         {
+          left: x[i].style.left,
           time: x[i].getElementsByClassName("fc-event-time")[0].innerText,
           content: x[i].getElementsByClassName("fc-event-content")[0].innerText,
         }
     }
     if (flat && flat.length !== 0 ) {
-      window.postMessage(JSON.stringify(flat))
+      window.postMessage(JSON.stringify({ flat, days }))
     }
 
   }, 1000)
@@ -28,7 +37,9 @@ function parse() {
 
 _sanitizeFormat = input => {
   console.log(input);
-  return JSON.parse(input).map(i => {
+  const parsed = JSON.parse(input);
+
+  return parsed.flat.map(i => {
     const res = {};
     const times = i["time"].split("-").map(p => p.trim().split(":").map(f => Number(f)))
     res.startTime = times[0];
