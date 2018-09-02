@@ -8,7 +8,7 @@ export default {
     try {
       await AsyncStorage.setItem(`${dataStoreKeyword}${key}`, JSON.stringify(struct));
       Alert.alert("Saved!")
-    } catch (error) {
+    } catch (error){
       Alert.alert("Error")
     }
   },

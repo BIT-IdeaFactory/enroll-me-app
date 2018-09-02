@@ -5,7 +5,6 @@ import {
 } from 'react-native-paper';
 import * as React from 'react';
 import { View, WebView, StyleSheet, Text, Alert } from 'react-native';
-import StorageManager from '../StorageManager';
 import { addEnrollmentToData } from '../actions/index';
 import { connect } from 'react-redux';
 
