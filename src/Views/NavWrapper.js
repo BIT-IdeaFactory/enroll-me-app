@@ -28,7 +28,7 @@ class NavigationWrapper extends React.Component {
         key: 'THU', title: 'THU', icon: 'sentiment-satisfied'
       },
       {
-        key: 'FRI', title: 'FRI', icon: 'sentiment-very-dissatisfied'
+        key: 'FRI', title: 'FRI', icon: 'sentiment-very-satisfied'
       },
       {
         key: 'settings', title: 'Settings', icon: 'settings'
