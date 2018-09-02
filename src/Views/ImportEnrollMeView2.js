@@ -38,8 +38,8 @@ export default class ImportEnrollMeView2 extends React.Component {
 
         </Text>
         <Dialog
-          visible={this.state.visible}
-          onDismiss={this._hideDialog}>
+          visible={this.state.visibleDialog}
+          onDismiss={this.props.onDismiss}>
           <DialogActions>
             <Button onPress={() => {
               this.setState({
@@ -73,7 +73,7 @@ export default class ImportEnrollMeView2 extends React.Component {
           onMessage={x => {
             const vvc = x.nativeEvent.data
             if (vvc.length !== 15) {
-              this.kmh = vvc
+              this.currentParsed = vvc
             }
           }}
           source={{ uri: this.state.xx }}

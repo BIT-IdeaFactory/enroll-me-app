@@ -1,12 +1,17 @@
-
 import {
   Button, Dialog, DialogActions, TextInput
 } from 'react-native-paper'
 import * as React from 'react'
 import { View, WebView, StyleSheet, Text, Alert } from 'react-native'
-import { addEnrollmentToData } from '../actions/index'
+import { addEnrollmentToData, toggleEnrollmentSelection } from '../actions/index'
 import { connect } from 'react-redux'
 
+// I regret to say that I'm not proud of this code
+// It's dirty, unclean and not reliable but it is
+// the only way to parse HTML to something readable
+
+// This code is to be executed once a second in JS frame in order to
+// parse current content and sent it via message which could be received from JS
 function parse () {
   setInterval(() => {
     const days = [
@@ -16,15 +21,15 @@ function parse () {
       document.getElementsByClassName('fc-thu')[0].getBoundingClientRect().left,
       document.getElementsByClassName('fc-fri')[0].getBoundingClientRect().left
     ]
-    const x = document.getElementsByClassName('fc-event')
+    const events = document.getElementsByClassName('fc-event')
     const flat = []
-    for (let i = 0; i < x.length; i++) {
-      const bou = x[i].getBoundingClientRect()
+    for (let i = 0; i < events.length; i++) {
+      const bounds = events[i].getBoundingClientRect()
       flat[i] =
         {
-          center: (bou.right + bou.left) / 2,
-          time: x[i].getElementsByClassName('fc-event-time')[0].innerText,
-          content: x[i].getElementsByClassName('fc-event-content')[0].innerText
+          center: (bounds.right + bounds.left) / 2,
+          time: events[i].getElementsByClassName('fc-event-time')[0].innerText,
+          content: events[i].getElementsByClassName('fc-event-content')[0].innerText
         }
     }
     if (flat && flat.length !== 0) {
@@ -44,12 +49,21 @@ function _sanitizeFormat (input) {
   }
   return parsed.flat.map(i => {
     const res = {}
-    const times = i['time'].split('-').map(p => p.trim().split(':').map(f => Number(f)))
-    res.startTime = times[0]
-    res.endTime = times[1]
+    const times = i['time'].split('-').map(p => p.trim().split(':'))
+    if (times[1][1].includes(' ')) {
+      const f = times[1][1].split(' ')
+      res.timeSpecifier = f[1]
+      times[1][1] = f[0]
+    } else {
+      res.timeSpecifier = null
+    }
+    res.startTime = times[0].map(f => Number(f))
+    res.endTime = times[1].map(f => Number(f))
     if (res.endTime[0] < 8) {
       res.endTime[0] += 12
-      res.startTime[0] += 12
+      if (res.startTime[0] < 12) {
+        res.startTime[0] += 12
+      }
     }
     const con = i['content'].split(',').map(c => c.trim())
     res.name = con[0]
@@ -63,7 +77,7 @@ function _sanitizeFormat (input) {
     } else if (placeAndType[1] === 'L') {
       res.type = 'Laboratory'
     }
-    res.day = getDay(i['center'])
+    res.dayCard = getDay(i['center'])
     console.log(res)
     return res
   })
@@ -73,39 +87,35 @@ const jsCode = parse.toString().replace('function parse() {\n ', '').replace(/}$
 
 class ImportEnrollMeView extends React.Component {
   state = {
-    visible: false,
+    visibleDialog: false,
     text: ''
   };
 
   _saveToMemory = () => {
     let name = this.state.text
-    if (this.kmh === undefined) {
+    if (this.currentParsed === undefined) {
       Alert.alert('Nothing to be saved!')
     } else {
-      const sanitizedForm = _sanitizeFormat(this.kmh)
+      const sanitizedForm = _sanitizeFormat(this.currentParsed)
       this.props.addEnrollment({
         id: name,
         data: sanitizedForm
       })
     }
-    this.setState({
-      visible: false,
-      text: ''
-    })
+    // TODO manage it better
+    this.props.onDismiss()
   }
 
   render () {
     return (
       <View style={styles.container}>
-        <Text>
-        </Text>
         <Dialog
-          visible={this.state.visible}
-          onDismiss={() => { this.kmh = undefined; this.setState({ visible: false }); this.props.onDismiss() }}>
+          visible={this.state.visibleDialog}
+          onDismiss={() => { this.currentParsed = undefined; this.setState({ visibleDialog: false }); this.props.onDismiss() }}>
           <DialogActions>
             <Button onPress={() => {
               this.setState({
-                visible: false,
+                visibleDialog: false,
                 text: ''
               })
             }}>Cancel</Button>
@@ -122,18 +132,18 @@ class ImportEnrollMeView extends React.Component {
         </Dialog>
         <WebView
           onMessage={x => {
-            const vvc = x.nativeEvent.data
-            if (vvc.length !== 15) {
-              this.kmh = vvc
+            const messageData = x.nativeEvent.data
+            if (messageData.length !== 15) {
+              this.currentParsed = messageData
             }
           }}
           source={{ uri: 'https://enroll-me.iiet.pl' }}
           injectedJavaScript={jsCode}
         />
-        <Button onPress = {() => this.setState({ visible: true })}>
+        <Button style = {{ backgroundColor: 'white' }} onPress = {() => this.setState({ visibleDialog: true })}>
           PARSE
         </Button>
-        <Button onPress = {this.props.onDismiss}>
+        <Button style = {{ backgroundColor: 'white' }} onPress = {this.props.onDismiss}>
           CANCEL
         </Button>
       </View>
@@ -146,7 +156,10 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addEnrollment: data => dispatch(addEnrollmentToData(data))
+  addEnrollment: data => {
+    dispatch(addEnrollmentToData(data))
+    dispatch(toggleEnrollmentSelection(data.id))
+  }
 })
 
 export default connect(

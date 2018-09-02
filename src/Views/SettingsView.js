@@ -1,43 +1,9 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { Button, Card, Checkbox, Modal, Text } from 'react-native-paper'
+import { Button, Caption, Modal, Paragraph, Toolbar, ToolbarContent } from 'react-native-paper'
 import ImportEnrollMeView from './ImportEnrollMeView'
 import { connect } from 'react-redux'
-
-class Enrollment extends React.Component {
-  state = {
-    checked: false
-  }
-  _onPress = () =>
-    this.setState({
-      checked: !this.state.checked
-    })
-
-  render () {
-    console.warn(0)
-    return (
-      <Card
-        onPress={this._onPress}
-      >
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ width: 36, height: 36 }}>
-            <Checkbox
-              checked={this.state.checked}
-              onPress={this._onPress}
-            >
-              <Text>
-            sefd
-              </Text>
-            </Checkbox>
-          </View>
-          <Text>
-            {this.props.name}
-          </Text>
-        </View>
-      </Card>
-    )
-  }
-}
+import EnrollmentItemListComponent from './EnrollmentItemListComponent'
 
 class SettingsView extends React.Component {
   state = {
@@ -45,24 +11,42 @@ class SettingsView extends React.Component {
   }
  _hideEnrollMeModal = () => this.setState({ visibleEnrollMeImport: false });
 
- render () {
-   console.log(this.props)
-   return (
-     <View style={styles.container}>
-       <Modal visible={this.state.visibleEnrollMeImport} onDismiss={() => this.setState({ visibleEnrollMeImport: false })}>
-         <ImportEnrollMeView onDismiss={this._hideEnrollMeModal}/>
-       </Modal>
-       <Button raised onPress={() => this.setState({ visibleEnrollMeImport: true })}>
+  _toggleWeeksManager = () => {
+    this.setState({
+      visibleWeeksManages: !this.state.visibleWeeksManages
+    })
+  }
+  render () {
+    return (
+      <View style={styles.container}>
+        <Toolbar>
+          <ToolbarContent title="Settings"/>
+
+        </Toolbar>
+        <Modal visible={this.state.visibleEnrollMeImport} onDismiss={() => this.setState({ visibleEnrollMeImport: false })}>
+          <ImportEnrollMeView onDismiss={this._hideEnrollMeModal}/>
+        </Modal>
+        <Button raised onPress={() => this.setState({ visibleEnrollMeImport: true })}>
           Import schedule from enroll-me
-       </Button>
-       {
-         this.props.enrollments.map((name, i) =>
-           <Enrollment key={`enr${i}`} name={name} selection={this.props.selection.indexOf(this.name) >= 0}/>
-         )
-       }
-     </View>
-   )
- }
+        </Button>
+        <Caption>
+         Enabled enrollments
+        </Caption>
+        {
+          this.props.enrollments.map((name, i) =>
+            <EnrollmentItemListComponent key={`enr${i}`} name={name} checked={this.props.selection.includes(name)}/>
+          )
+        }
+        {
+          this.props.enrollments.length === 0 && (
+            <Paragraph>
+             No imported enrollments
+            </Paragraph>
+          )
+        }
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({

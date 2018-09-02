@@ -4744,9 +4744,9 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
-react-native-paper@^1.11.1:
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-1.11.1.tgz#00de452bee4ac001fe685b5ad73b18c531ad6522"
+react-native-paper@^1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-1.12.0.tgz#1d891b2068cda4193b42fc527779aa379605ca11"
   dependencies:
     color "^2.0.1"
     create-react-context "^0.2.2"
