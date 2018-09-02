@@ -5,9 +5,6 @@ import ImportEnrollMeView2 from './ImportEnrollMeView2';
 import ImportEnrollMeView from './ImportEnrollMeView';
 import StorageManager from './StorageManager';
 
-import React from 'react';
-import { View } from 'react-native';
-
 class Enrollment extends React.Component {
   state: {
     checked: false;
@@ -38,7 +35,9 @@ class SettingsView extends React.Component {
 
   async componentDidMount() {
     const keys = await StorageManager.getKeys();
-    console.log(keys)
+    keys.forEach(k => {
+      StorageManager.getByKey(k).then(g => console.log(g));
+    })
     this.setState({
       keys
     })

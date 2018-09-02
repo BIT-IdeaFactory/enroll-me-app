@@ -16,5 +16,5 @@ export default {
     const keys = await AsyncStorage.getAllKeys();
     return keys.filter(x => x.startsWith(keyword)).map(i => i.replace(keyword, ""))
   },
-  getByKey: key => AsyncStorage.getItem(`${keyword}${key}`)
+  getByKey: async key => await AsyncStorage.getItem(`${keyword}${key}`)
 }
