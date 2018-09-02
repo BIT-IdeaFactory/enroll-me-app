@@ -1,18 +1,28 @@
 import * as React from 'react';
-import {
-  BottomNavigation, Button, Dialog, DialogActions, Headline, TextInput, Toolbar, ToolbarAction,
-  ToolbarBackAction, ToolbarContent
-} from 'react-native-paper';
-import { View, StyleSheet, AsyncStorage, WebView } from 'react-native';
-import StorageManager from './StorageManager'
+import { BottomNavigation } from 'react-native-paper';
 import SettingsView from './SettingsView';
+import SingleDayView from './SingleDayView';
+import { ActivityIndicator, View, StyleSheet } from 'react-native';
 
 const DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI'];
 const BOTTOM_NAV_DAYS = {settings: SettingsView};
-DAYS.forEach(d => BOTTOM_NAV_DAYS[d] = () => <Sample day={d}/>)
-
+DAYS.forEach((d, i) => BOTTOM_NAV_DAYS[d] = () => <SingleDayView day={i}/>)
 
 export default class App extends React.Component {
+  state = {
+    loaded: true
+  };
+  componentDidMount() {
+
+  }
+  render() {
+    if (this.state.loaded)
+      return <NavigationWrapper/>
+    return <LoadingView/>
+  }
+}
+
+class NavigationWrapper extends React.Component {
   state = {
     index: 0,
     routes: [
@@ -40,17 +50,15 @@ export default class App extends React.Component {
   }
 }
 
-
-class Sample extends React.Component {
+class LoadingView extends React.Component {
   render() {
-    return (
-      <View style={styles.container}></View>
-    );
+    return <View style={styles.container} >
+      <ActivityIndicator/>
+    </View>
   }
 }
 
-
-
 const styles = StyleSheet.create({
-  container: {flex: 1}
+  container: {flex: 1, justifyContent: 'center', alignItems: 'center'}
 });
+

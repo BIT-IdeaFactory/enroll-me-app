@@ -1,20 +1,23 @@
 import { AsyncStorage, Alert } from 'react-native'
 
-const keyword = "__ENROLLMENTDATA__"
+const dataStoreKeyword = "@enrollments_data:store";
+const selectionStoreKeyword = "@enrollments_selection:store";
 
 export default {
-  save: async (key, struct) => {
+  saveEnrollment: async (key, struct) => {
     try {
-      await AsyncStorage.setItem(`${keyword}${key}`, JSON.stringify(struct));
+      await AsyncStorage.setItem(`${dataStoreKeyword}${key}`, JSON.stringify(struct));
       Alert.alert("Saved!")
     } catch (error) {
       Alert.alert("Error")
     }
-  }
-  ,
-  getKeys: async () => {
-    const keys = await AsyncStorage.getAllKeys();
-    return keys.filter(x => x.startsWith(keyword)).map(i => i.replace(keyword, ""))
   },
-  getByKey: async key => await AsyncStorage.getItem(`${keyword}${key}`)
+  removeEnrollment: () => {},
+
+  getAllEnrollments: () => {},
+
+  getSelection: () => {},
+
+  changeSelection: () => {},
+
 }

@@ -6,6 +6,8 @@ import {
 import * as React from 'react';
 import { View, WebView, StyleSheet, Text, Alert } from 'react-native';
 import StorageManager from './StorageManager';
+import { addEnrollmentToData } from './actions/index';
+import { connect } from 'react-redux';
 
 
 function parse() {
@@ -74,19 +76,24 @@ _sanitizeFormat = input => {
 
 const jsCode = parse.toString().replace("function parse() {\n ", "").replace(/}$/, "");
 
-export default class ImportEnrollMeView extends React.Component {
+class ImportEnrollMeView extends React.Component {
   state = {
     visible: false,
     text: ""
   };
 
-  _saveToMemory = async () => {
+  _saveToMemory = () => {
     let name = this.state.text;
     if (this.kmh === undefined) {
       Alert.alert("Nothing to be saved!")
     } else {
       const sanitizedForm = _sanitizeFormat(this.kmh);
-       await StorageManager.save(name, sanitizedForm)
+      console.log(this.props.addEnrollment);
+      console.log(sanitizedForm);
+       this.props.addEnrollment({
+         id: name,
+         data: sanitizedForm
+       })
     }
     this.setState({
       visible: false,
@@ -145,3 +152,12 @@ export default class ImportEnrollMeView extends React.Component {
 const styles = StyleSheet.create({
   container: { width: '90%', height: '100%', alignSelf: 'center'}
 });
+
+const mapDispatchToProps = dispatch => ({
+  addEnrollment: data => dispatch(addEnrollmentToData(data))
+})
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(ImportEnrollMeView)
