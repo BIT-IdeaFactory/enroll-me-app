@@ -11,42 +11,37 @@ class SettingsView extends React.Component {
   }
  _hideEnrollMeModal = () => this.setState({ visibleEnrollMeImport: false });
 
-  _toggleWeeksManager = () => {
-    this.setState({
-      visibleWeeksManages: !this.state.visibleWeeksManages
-    })
-  }
-  render () {
-    return (
-      <View style={styles.container}>
-        <Toolbar>
-          <ToolbarContent title="Settings"/>
+ render () {
+   return (
+     <View style={styles.container}>
+       <Toolbar>
+         <ToolbarContent title="Settings"/>
 
-        </Toolbar>
-        <Modal visible={this.state.visibleEnrollMeImport} onDismiss={() => this.setState({ visibleEnrollMeImport: false })}>
-          <ImportEnrollMeView onDismiss={this._hideEnrollMeModal}/>
-        </Modal>
-        <Button raised onPress={() => this.setState({ visibleEnrollMeImport: true })}>
+       </Toolbar>
+       <Modal visible={this.state.visibleEnrollMeImport} onDismiss={() => this.setState({ visibleEnrollMeImport: false })}>
+         <ImportEnrollMeView onDismiss={this._hideEnrollMeModal} names={this.props.enrollments} />
+       </Modal>
+       <Button raised onPress={() => this.setState({ visibleEnrollMeImport: true })}>
           Import schedule from enroll-me
-        </Button>
-        <Caption>
+       </Button>
+       <Caption>
          Enabled enrollments
-        </Caption>
-        {
-          this.props.enrollments.map((name, i) =>
-            <EnrollmentItemListComponent key={`enr${i}`} name={name} checked={this.props.selection.includes(name)}/>
-          )
-        }
-        {
-          this.props.enrollments.length === 0 && (
-            <Paragraph>
+       </Caption>
+       {
+         this.props.enrollments.map((name, i) =>
+           <EnrollmentItemListComponent key={`enr${i}`} name={name} checked={this.props.selection.includes(name)}/>
+         )
+       }
+       {
+         this.props.enrollments.length === 0 && (
+           <Paragraph>
              No imported enrollments
-            </Paragraph>
-          )
-        }
-      </View>
-    )
-  }
+           </Paragraph>
+         )
+       }
+     </View>
+   )
+ }
 }
 
 const styles = StyleSheet.create({

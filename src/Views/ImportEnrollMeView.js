@@ -1,5 +1,5 @@
 import {
-  Button, Dialog, DialogActions, TextInput
+  Button, Dialog, DialogActions, Paragraph, TextInput
 } from 'react-native-paper'
 import * as React from 'react'
 import { View, WebView, StyleSheet, Alert } from 'react-native'
@@ -92,7 +92,11 @@ class ImportEnrollMeView extends React.Component {
   };
 
   _saveToMemory = () => {
-    let name = this.state.text
+    const name = this.state.text
+    if (this.props.names.includes(name)) {
+      Alert.alert('Schedule with this name already exists')
+      return
+    }
     if (this.currentParsed === undefined) {
       Alert.alert('Nothing to be saved!')
     } else {
@@ -130,6 +134,9 @@ class ImportEnrollMeView extends React.Component {
             />
           </DialogActions>
         </Dialog>
+        <Paragraph style={{ color: 'white' }}>
+          In order to import navigate to your schedule and press PARSE then select name for your timetable
+        </Paragraph>
         <WebView
           onMessage={x => {
             const messageData = x.nativeEvent.data
@@ -152,7 +159,7 @@ class ImportEnrollMeView extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: { width: '90%', height: '100%', alignSelf: 'center' }
+  container: { width: '90%', height: '90%', alignSelf: 'center' }
 })
 
 const mapDispatchToProps = dispatch => ({
