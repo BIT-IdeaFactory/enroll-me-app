@@ -1,6 +1,6 @@
 export const toggleEnrollmentSelection = enrollmentID => ({
   type: 'TOGGLE_ENROLLMENT_SELECTION',
-  id: enrollmentID,
+  id: enrollmentID
 })
 
 export const removeEnrollmentFromSelection = enrollmentID => ({

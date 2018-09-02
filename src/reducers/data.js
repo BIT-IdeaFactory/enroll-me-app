@@ -4,11 +4,11 @@ export default (state = [], action) => {
       return [
         ...state,
         action.data
-      ];
+      ]
     case 'REMOVE_ENROLLMENT_DATA':
-      return state.filter(i => i.id !== action.id);
+      return state.filter(i => i.id !== action.id)
     case 'ADD_DATA':
-      return action.data;
+      return action.data
     default:
       return state
   }

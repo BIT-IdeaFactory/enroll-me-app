@@ -1,9 +1,8 @@
-import React from 'react';
-import { View, StyleSheet, AsyncStorage } from 'react-native';
-import { Button, Caption, Card, Checkbox, ListItem, Modal, RadioButton, Switch, Text } from 'react-native-paper';
-import ImportEnrollMeView2 from './ImportEnrollMeView2';
-import ImportEnrollMeView from './ImportEnrollMeView';
-import { connect } from 'react-redux';
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
+import { Button, Card, Checkbox, Modal, Text } from 'react-native-paper'
+import ImportEnrollMeView from './ImportEnrollMeView'
+import { connect } from 'react-redux'
 
 class Enrollment extends React.Component {
   state = {
@@ -14,66 +13,64 @@ class Enrollment extends React.Component {
       checked: !this.state.checked
     })
 
-  render() {
-    console.warn(0);
+  render () {
+    console.warn(0)
     return (
       <Card
         onPress={this._onPress}
       >
-      <View style={{ flexDirection: 'row' }}>
-      <View  style={{width: 36, height: 36}}>
-        <Checkbox
-          checked={this.state.checked}
-          onPress={this._onPress}
-        >
-          <Text>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ width: 36, height: 36 }}>
+            <Checkbox
+              checked={this.state.checked}
+              onPress={this._onPress}
+            >
+              <Text>
             sefd
+              </Text>
+            </Checkbox>
+          </View>
+          <Text>
+            {this.props.name}
           </Text>
-        </Checkbox>
-      </View>
-        <Text>
-          {this.props.name}
-        </Text>
-      </View>
+        </View>
       </Card>
-    );
+    )
   }
 }
-
-
 
 class SettingsView extends React.Component {
   state = {
-    visibleEnrollMeImport: false,
+    visibleEnrollMeImport: false
   }
- _hideEnrollMeModal = () => this.setState({ visibleEnrollMeImport:false });
+ _hideEnrollMeModal = () => this.setState({ visibleEnrollMeImport: false });
 
-  render() {
-    console.log(this.props);
-    return (
-      <View style={styles.container}>
-        <Modal visible={this.state.visibleEnrollMeImport} onDismiss={() => this.setState({ visibleEnrollMeImport:false })}>
-          <ImportEnrollMeView onDismiss={this._hideEnrollMeModal}/>
-        </Modal>
-        <Button raised onPress={() => this.setState({visibleEnrollMeImport : true})}>
+ render () {
+   console.log(this.props)
+   return (
+     <View style={styles.container}>
+       <Modal visible={this.state.visibleEnrollMeImport} onDismiss={() => this.setState({ visibleEnrollMeImport: false })}>
+         <ImportEnrollMeView onDismiss={this._hideEnrollMeModal}/>
+       </Modal>
+       <Button raised onPress={() => this.setState({ visibleEnrollMeImport: true })}>
           Import schedule from enroll-me
-        </Button>
-        {
-          this.props.enrollments.map((name, i) =>
-            <Enrollment key={`enr${i}`} name={name} selection={this.props.selection.indexOf(this.name) >= 0}/>
-          )
-        }
-      </View>
-    );
-  }
+       </Button>
+       {
+         this.props.enrollments.map((name, i) =>
+           <Enrollment key={`enr${i}`} name={name} selection={this.props.selection.indexOf(this.name) >= 0}/>
+         )
+       }
+     </View>
+   )
+ }
 }
 
 const styles = StyleSheet.create({
-  enrollmentCard : {
+  enrollmentCard: {
     flexDirection: 'row'
   },
   container: {}
-});
+})
 
 const mapStateToProps = state => ({
   selection: state.selection,
@@ -81,6 +78,5 @@ const mapStateToProps = state => ({
 })
 
 export default connect(
-  mapStateToProps,
+  mapStateToProps
 )(SettingsView)
-

@@ -1,23 +1,24 @@
-import * as React from 'react';
-import { BottomNavigation } from 'react-native-paper';
-import SettingsView from './Views/SettingsView';
-import SingleDayView from './Views/SingleDayView';
-import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import * as React from 'react'
+import { BottomNavigation } from 'react-native-paper'
+import SettingsView from './Views/SettingsView'
+import SingleDayView from './Views/SingleDayView'
+import { ActivityIndicator, View, StyleSheet } from 'react-native'
 
-const DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI'];
-const BOTTOM_NAV_DAYS = {settings: SettingsView};
-DAYS.forEach((d, i) => BOTTOM_NAV_DAYS[d] = () => <SingleDayView day={i}/>)
+const DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI']
+const BOTTOM_NAV_DAYS = { settings: SettingsView }
+for (let i = 0; i < DAYS.length; i++) {
+  BOTTOM_NAV_DAYS[DAYS[i]] = () => <SingleDayView day={i}/>
+}
 
 export default class App extends React.Component {
   state = {
     loaded: true
   };
-  componentDidMount() {
+  componentDidMount () {
 
   }
-  render() {
-    if (this.state.loaded)
-      return <NavigationWrapper/>
+  render () {
+    if (this.state.loaded) { return <NavigationWrapper/> }
     return <LoadingView/>
   }
 }
@@ -29,9 +30,9 @@ class NavigationWrapper extends React.Component {
       ...DAYS.map(i => ({
         key: i, title: i, icon: 'arrow-drop-down'
       })),
-        {
-          key: 'settings', title: 'Settings', icon: 'settings'
-        }
+      {
+        key: 'settings', title: 'Settings', icon: 'settings'
+      }
     ]
   };
 
@@ -39,19 +40,19 @@ class NavigationWrapper extends React.Component {
 
   _renderScene = BottomNavigation.SceneMap(BOTTOM_NAV_DAYS);
 
-  render() {
+  render () {
     return (
       <BottomNavigation
         navigationState={this.state}
         onIndexChange={this._handleIndexChange}
         renderScene={this._renderScene}
       />
-    );
+    )
   }
 }
 
 class LoadingView extends React.Component {
-  render() {
+  render () {
     return <View style={styles.container} >
       <ActivityIndicator/>
     </View>
@@ -59,6 +60,5 @@ class LoadingView extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, justifyContent: 'center', alignItems: 'center'}
-});
-
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center' }
+})

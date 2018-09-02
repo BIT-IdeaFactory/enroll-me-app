@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, StyleSheet, AsyncStorage } from 'react-native';
-import { Button, Caption, Card, Checkbox, ListItem, Modal, RadioButton, Switch, Text } from 'react-native-paper';
-import { connect } from 'react-redux';
-import { toggleEnrollmentSelection } from '../actions/index';
+import React from 'react'
+import { View } from 'react-native'
+import { Card, Checkbox, Text } from 'react-native-paper'
+import { connect } from 'react-redux'
+import { toggleEnrollmentSelection } from '../actions/index'
 
 class EnrollmentItem extends React.Component {
   state = {
@@ -10,13 +10,13 @@ class EnrollmentItem extends React.Component {
   }
   _onPress = () => this.props.toggleEnrollmentSelection();
 
-  render() {
+  render () {
     return (
       <Card
         onPress={this._onPress}
       >
         <View style={{ flexDirection: 'row' }}>
-          <View  style={{width: 36, height: 36}}>
+          <View style={{ width: 36, height: 36 }}>
             <Checkbox
               checked={this.state.checked}
               onPress={this._onPress}
@@ -31,7 +31,7 @@ class EnrollmentItem extends React.Component {
           </Text>
         </View>
       </Card>
-    );
+    )
   }
 }
 
@@ -41,6 +41,5 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(
   null,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(EnrollmentItem)
-

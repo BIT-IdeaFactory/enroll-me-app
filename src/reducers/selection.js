@@ -5,12 +5,12 @@ export default (state = [], action) => {
         return [
           ...state,
           action.id
-        ];
+        ]
       } else {
-        return state.filter(i => i !== action.id);
+        return state.filter(i => i !== action.id)
       }
     case 'ADD_SELECTION':
-      return action.selection;
+      return action.selection
     default:
       return state
   }
