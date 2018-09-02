@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BottomNavigation } from 'react-native-paper';
-import SettingsView from './SettingsView';
-import SingleDayView from './SingleDayView';
+import SettingsView from './Views/SettingsView';
+import SingleDayView from './Views/SingleDayView';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 
 const DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI'];

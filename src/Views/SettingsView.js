@@ -3,7 +3,7 @@ import { View, StyleSheet, AsyncStorage } from 'react-native';
 import { Button, Caption, Card, Checkbox, ListItem, Modal, RadioButton, Switch, Text } from 'react-native-paper';
 import ImportEnrollMeView2 from './ImportEnrollMeView2';
 import ImportEnrollMeView from './ImportEnrollMeView';
-import StorageManager from './StorageManager';
+import StorageManager from '../StorageManager';
 import { connect } from 'react-redux';
 
 class Enrollment extends React.Component {

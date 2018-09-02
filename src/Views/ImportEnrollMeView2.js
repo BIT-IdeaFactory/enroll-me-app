@@ -5,7 +5,7 @@ import {
 } from 'react-native-paper';
 import * as React from 'react';
 import { View, WebView, StyleSheet, Text } from 'react-native';
-import StorageManager from './StorageManager';
+import StorageManager from '../StorageManager';
 
 
 function parse() {
