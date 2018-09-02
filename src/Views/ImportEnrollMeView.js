@@ -2,7 +2,7 @@ import {
   Button, Dialog, DialogActions, TextInput
 } from 'react-native-paper'
 import * as React from 'react'
-import { View, WebView, StyleSheet, Text, Alert } from 'react-native'
+import { View, WebView, StyleSheet, Alert } from 'react-native'
 import { addEnrollmentToData, toggleEnrollmentSelection } from '../actions/index'
 import { connect } from 'react-redux'
 
