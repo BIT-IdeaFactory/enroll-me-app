@@ -70,10 +70,21 @@ class SingleDayView extends React.Component {
           </DialogActions>
         </Dialog>
         <Toolbar>
-          <ToolbarContent title={DAY_MAPPING[this.props.dayCard]}/>
+          <ToolbarContent title={DAY_MAPPING[this.props.dayCard]} subtitle={`${this.props.half}. half, week ${this.props.AB}`}/>
+
           <ToolbarAction icon="more-vert" onPress={this._toggleWeeksManager} />
         </Toolbar>
         <ScrollView style={styles.container}>
+          {this.props.events.length === 0 && (
+            <View style={{ justifyContent: 'center', alignItems: 'center', height: 128 }}>
+              <Paragraph>
+                Nothing here
+              </Paragraph>
+              <Paragraph>
+                ¯\_(ツ)_/¯
+              </Paragraph>
+            </View>
+          )}
           {this.props.events.map((ev, i) =>
             <Paper key={`ev${i}`} style={styles.paperEvent}>
               <Paragraph>
