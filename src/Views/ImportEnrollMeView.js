@@ -77,8 +77,7 @@ function _sanitizeFormat (input) {
     } else if (placeAndType[1] === 'L') {
       res.type = 'Laboratory'
     }
-    res.dayCard = getDay(i['center'])
-    console.log(res)
+    res.day = getDay(i['center'])
     return res
   })
 }
