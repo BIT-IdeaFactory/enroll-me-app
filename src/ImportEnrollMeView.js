@@ -12,18 +12,19 @@ function parse() {
   setInterval(() => {
 
     const days = [
-      document.getElementsByClassName("fc-mon")[0].style.width,
-      document.getElementsByClassName("fc-tue")[0].style.width,
-      document.getElementsByClassName("fc-wed")[0].style.width,
-      document.getElementsByClassName("fc-thu")[0].style.width,
-      document.getElementsByClassName("fc-fri")[0].style.width,
-    ]
+      document.getElementsByClassName("fc-mon")[0].getBoundingClientRect().left,
+      document.getElementsByClassName("fc-tue")[0].getBoundingClientRect().left,
+      document.getElementsByClassName("fc-wed")[0].getBoundingClientRect().left,
+      document.getElementsByClassName("fc-thu")[0].getBoundingClientRect().left,
+      document.getElementsByClassName("fc-fri")[0].getBoundingClientRect().left
+    ];
     const x = document.getElementsByClassName("fc-event");
     const flat = [];
     for (let i = 0; i < x.length; i++) {
+      const bou = x[i].getBoundingClientRect();
       flat[i] =
         {
-          left: x[i].style.left,
+          center: (bou.right + bou.left) / 2,
           time: x[i].getElementsByClassName("fc-event-time")[0].innerText,
           content: x[i].getElementsByClassName("fc-event-content")[0].innerText,
         }
@@ -36,9 +37,14 @@ function parse() {
 }
 
 _sanitizeFormat = input => {
-  console.log(input);
   const parsed = JSON.parse(input);
-
+  const getDay = pos => {
+    let day = 0;
+    while (day < 4 && pos > parsed.days[day + 1]) {
+      day++
+    }
+    return day;
+  }
   return parsed.flat.map(i => {
     const res = {};
     const times = i["time"].split("-").map(p => p.trim().split(":").map(f => Number(f)))
@@ -60,6 +66,8 @@ _sanitizeFormat = input => {
     } else if (placeAndType[1] === "L") {
       res.type = "Laboratory"
     }
+    res.day = getDay(i["center"]);
+    console.log(res);
     return res
   })
 }

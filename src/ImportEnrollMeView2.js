@@ -56,7 +56,6 @@ export default class ImportEnrollMeView2 extends React.Component {
             }}>Cancel</Button>
             <Button onPress={() =>{
               StorageManager.save(this.state.text, this.kmh);
-              console.log(this.kmh);
               this.setState({
                 visible: false,
                 text: ""
