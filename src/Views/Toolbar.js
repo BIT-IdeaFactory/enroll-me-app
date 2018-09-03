@@ -6,7 +6,7 @@ import {
 } from 'react-native-paper'
 import Dialog from 'react-native-paper/src/components/Dialog/Dialog'
 import { connect } from 'react-redux'
-import { toggleAB, toggleHalf } from '../actions/index'
+import { setLastSelectedDay, toggleAB, toggleHalf } from '../actions/index'
 
 class Toolbar extends React.Component {
   state = {
@@ -16,6 +16,12 @@ class Toolbar extends React.Component {
     this.setState({
       visibleWeeksManages: !this.state.visibleWeeksManages
     })
+  }
+
+  _getToday = () => {
+    let day = new Date().getDay()
+    day = (day === 0 || day === 6) ? 0 : day - 1
+    this.props.setDay(day)
   }
 
   _hideDialog = () => this.setState({ visibleWeeksManages: false })
@@ -63,6 +69,7 @@ class Toolbar extends React.Component {
         <PaperToolbar>
           <ToolbarContent title={CARD_MAPPING[this.props.card]} subtitle={this.props.card === 5 ? '' : `${this.props.half}. half, week ${this.props.AB}`}/>
 
+          <ToolbarAction icon="event" onPress={this._getToday} />
           <ToolbarAction icon="more-vert" onPress={this._toggleWeeksManager} />
         </PaperToolbar>
       </View>
@@ -90,7 +97,8 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = dispatch => ({
   toggleAB: () => dispatch(toggleAB()),
-  toggleHalf: () => dispatch(toggleHalf())
+  toggleHalf: () => dispatch(toggleHalf()),
+  setDay: d => dispatch(setLastSelectedDay(d))
 })
 
 export default connect(
