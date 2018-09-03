@@ -1,5 +1,5 @@
 import {
-  Button, Dialog, DialogActions, Paragraph, TextInput
+  Button, Dialog, DialogActions, Paper, Paragraph, TextInput, DialogContent, Text
 } from 'react-native-paper'
 import * as React from 'react'
 import { View, WebView, StyleSheet, Alert } from 'react-native'
@@ -93,10 +93,10 @@ class ImportEnrollMeView extends React.Component {
       Alert.alert('Schedule with this name already exists')
       return
     }
-    if (this.currentParsed === undefined) {
+    if (this.currentScheduleNotParsed === undefined) {
       Alert.alert('Nothing to be saved!')
     } else {
-      const sanitizedForm = _sanitizeFormat(this.currentParsed)
+      const sanitizedForm = _sanitizeFormat(this.currentScheduleNotParsed)
       this.props.addEnrollment({
         id: name,
         data: sanitizedForm
@@ -111,8 +111,13 @@ class ImportEnrollMeView extends React.Component {
       <View style={styles.container}>
         <Dialog
           visible={this.state.visibleDialog}
-          onDismiss={() => { this.currentParsed = undefined; this.setState({ visibleDialog: false }); this.props.onDismiss() }}>
-          <DialogActions>
+          onDismiss={() => { this.currentScheduleNotParsed = undefined; this.setState({ visibleDialog: false }); this.props.onDismiss() }}>
+          <DialogContent>
+            <Text>
+              Select name for your enrollment
+            </Text>
+          </DialogContent>
+          <DialogActions style={{ alignItems: 'center' }}>
             <Button onPress={() => {
               this.setState({
                 visibleDialog: false,
@@ -123,21 +128,23 @@ class ImportEnrollMeView extends React.Component {
               disabled = {this.state.text === ''}
               onPress={this._saveToMemory}>Ok</Button>
             <TextInput
-              style={{ flex: 1 }}
+              style={{ flex: 1, paddingBottom: 30 }}
               label='name'
               value={this.state.text}
               onChangeText={text => this.setState({ text })}
             />
           </DialogActions>
         </Dialog>
-        <Paragraph style={{ color: 'white' }}>
-          In order to import navigate to your schedule and press PARSE then select name for your timetable
-        </Paragraph>
+        <Paper style={{ padding: 4 }}>
+          <Paragraph>
+            In order to import navigate to your schedule and press PARSE when your schedule will be visible on page.
+            Then choose name for your timetable
+          </Paragraph>
+        </Paper>
         <WebView
-          onMessage={x => {
-            const messageData = x.nativeEvent.data
+          onMessage={({ nativeEvent: { data: messageData } }) => {
             if (messageData.length !== 15) {
-              this.currentParsed = messageData
+              this.currentScheduleNotParsed = messageData
             }
           }}
           source={{ uri: 'https://enroll-me.iiet.pl' }}

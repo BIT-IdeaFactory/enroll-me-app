@@ -73,7 +73,7 @@ export default class ImportEnrollMeView2 extends React.Component {
           onMessage={x => {
             const vvc = x.nativeEvent.data
             if (vvc.length !== 15) {
-              this.currentParsed = vvc
+              this.currentScheduleNotParsed = vvc
             }
           }}
           source={{ uri: this.state.xx }}
