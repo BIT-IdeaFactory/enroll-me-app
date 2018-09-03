@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 
 // This code is to be executed once a second in JS frame in order to
 // parse current content and sent it via message which could be received from JS
-function parse () {
+const jsCode = `
   setInterval(() => {
     const days = [
       document.getElementsByClassName('fc-mon')[0].getBoundingClientRect().left,
@@ -36,7 +36,7 @@ function parse () {
       window.postMessage(JSON.stringify({ flat, days }))
     }
   }, 1000)
-}
+`
 
 function _sanitizeFormat (input) {
   const parsed = JSON.parse(input)
@@ -81,9 +81,6 @@ function _sanitizeFormat (input) {
     return res
   })
 }
-
-const jsCode = parse.toString().replace('function parse() {\n ', '').replace(/}$/, '')
-
 class ImportEnrollMeView extends React.Component {
   state = {
     visibleDialog: false,
