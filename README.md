@@ -8,8 +8,8 @@ Release soon!
 
 ## Screens
 
-![](./readme-assets/iOSscreen.png)
-![](./readme-assets/androidscreen.png)
+<img src="https://raw.githubusercontent.com/BIT-IdeaFactory/enroll-me-app/master/readme-assets/iOSscreen.png" alt="drawing" width="400"/>
+<img src="https://raw.githubusercontent.com/BIT-IdeaFactory/enroll-me-app/master/readme-assets/androidscreen.png" alt="drawing" width="400"/>
 
 ## Development
 
