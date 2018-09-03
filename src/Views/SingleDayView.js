@@ -14,7 +14,7 @@ class SingleDayView extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={{ paddingBottom: 72 }}>
+        <ScrollView>
           {this.props.events.length === 0 && (
             <View style={{ justifyContent: 'center', alignItems: 'center', height: 128 }}>
               <Paragraph>
@@ -25,21 +25,26 @@ class SingleDayView extends React.Component {
               </Paragraph>
             </View>
           )}
-          {this.props.events.map((ev, i) =>
-            <Paper key={`ev${i}`} style={styles.paperEvent}>
-              <Paragraph>
-                {`${ev.startTime[0]}:${minutize(ev.startTime[1])} - ${ev.endTime[0]}:${minutize(ev.endTime[1])} ${ev.timeSpecifier !== null ? ev.timeSpecifier : ''}`}
-              </Paragraph>
-              <Paragraph>
-                {`${ev.place} ${ev.type}`}
-              </Paragraph>
-              <Headline>
-                {ev.name}
-              </Headline>
-              <Caption>
-                {ev.teacher}
-              </Caption>
-            </Paper>
+          {this.props.events.map((ev, i) => {
+            const st = new Date(ev.startTime)
+            const et = new Date(ev.endTime)
+            return (
+              <Paper key={`ev${i}`} style={styles.paperEvent}>
+                <Paragraph>
+                  {`${st.getHours()}:${minutize(st.getMinutes())} - ${et.getHours()}:${minutize(et.getMinutes())} ${ev.weekType}`}
+                </Paragraph>
+                <Paragraph>
+                  {`${ev.place} ${ev.type}`}
+                </Paragraph>
+                <Headline>
+                  {ev.name}
+                </Headline>
+                <Caption>
+                  {ev.teacher}
+                </Caption>
+              </Paper>
+            )
+          }
           )
           }
         </ScrollView>
@@ -53,9 +58,9 @@ const mapStateToProps = (state, props) => {
   for (let i = 0; i < state.data.length; i++) {
     if (state.selection.includes(state.data[i].id)) {
       for (let j = 0; j < state.data[i].data.length; j++) {
-        const spec = state.data[i].data[j].timeSpecifier
-        if (state.data[i].data[j].day === props.dayCard &&
-          (spec === null || spec === state.appState.ab || spec === state.appState.half)) {
+        const spec = state.data[i].data[j].weekType
+        if (new Date(state.data[i].data[j].startTime).getDay() - 1 === props.dayCard &&
+          (spec === '' || state.appState.ab === null || spec === state.appState.ab)) {
           evs.push(state.data[i].data[j])
         }
       }
