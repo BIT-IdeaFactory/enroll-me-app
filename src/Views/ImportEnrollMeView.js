@@ -59,7 +59,7 @@ class ImportEnrollMeView extends React.Component {
       <View style={styles.container}>
         <Dialog
           visible={this.state.visibleDialog}
-          onDismiss={() => { this.currentScheduleNotParsed = undefined; this.setState({ visibleDialog: false }); this.props.onDismiss() }}>
+          onDismiss={() => { this.setState({ visibleDialog: false }); this.props.onDismiss() }}>
           <DialogContent>
             <Text>
               Select name for your enrollment
