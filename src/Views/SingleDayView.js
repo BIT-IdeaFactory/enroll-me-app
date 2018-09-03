@@ -1,79 +1,19 @@
 import * as React from 'react'
-import { ScrollView, View, StyleSheet } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { connect } from 'react-redux'
-import {
-  Toolbar, ToolbarContent, Headline, Paper, Caption, Paragraph, ToolbarAction, Dialog,
-  DialogTitle, DialogContent, DialogActions, Button, Switch, Text
-} from 'react-native-paper'
+import { Caption, Headline, Paper, Paragraph } from 'react-native-paper'
 import { toggleAB, toggleHalf } from '../actions/index'
 
-const DAY_MAPPING = {
-  0: 'Monday',
-  1: 'Tuesday',
-  2: 'Wednesday',
-  3: 'Thursday',
-  4: 'Friday',
-  5: 'Settings'
-}
 const minutize = number => number < 10 ? `0${number}` : number
 
 class SingleDayView extends React.Component {
   state = {
     visibleWeeksManages: false
   }
-  _toggleWeeksManager = () => {
-    this.setState({
-      visibleWeeksManages: !this.state.visibleWeeksManages
-    })
-  }
-
-  _hideDialog = () => this.setState({ visibleWeeksManages: false })
 
   render () {
     return (
       <View style={styles.container}>
-        <Dialog
-          visible={this.state.visibleWeeksManages}
-          onDismiss={this._hideDialog}>
-          <DialogTitle>Which week should be shown</DialogTitle>
-          <DialogContent>
-            <View style={{ width: '70%', alignSelf: 'center' }}>
-              <View style={styles.switchWrapper}>
-                <Text>
-                  week A
-                </Text>
-                <Switch
-                  value={this.props.AB === 'B'}
-                  onValueChange={this.props.toggleAB}
-                />
-                <Text>
-                  week B
-                </Text>
-              </View>
-              <View style={styles.switchWrapper}>
-                <Text>
-                  1. half
-                </Text>
-                <Switch
-                  value={this.props.half === 2}
-                  onValueChange={this.props.toggleHalf}
-                />
-                <Text>
-                  2. half
-                </Text>
-              </View>
-            </View>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              onPress={this._hideDialog}>Ok</Button>
-          </DialogActions>
-        </Dialog>
-        <Toolbar>
-          <ToolbarContent title={DAY_MAPPING[this.props.dayCard]} subtitle={`${this.props.half}. half, week ${this.props.AB}`}/>
-
-          <ToolbarAction icon="more-vert" onPress={this._toggleWeeksManager} />
-        </Toolbar>
         <ScrollView contentContainerStyle={{ paddingBottom: 72 }}>
           {this.props.events.length === 0 && (
             <View style={{ justifyContent: 'center', alignItems: 'center', height: 128 }}>
@@ -144,6 +84,5 @@ const styles = StyleSheet.create({
     elevation: 8,
     margin: 14,
     padding: 12
-  },
-  switchWrapper: { margin: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }
+  }
 })

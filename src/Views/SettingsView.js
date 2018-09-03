@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
-import { Button, Caption, Modal, Paragraph, Toolbar, ToolbarContent } from 'react-native-paper'
+import { StyleSheet, View } from 'react-native'
+import { Button, Caption, Modal, Paragraph } from 'react-native-paper'
 import ImportEnrollMeView from './ImportEnrollMeView'
 import { connect } from 'react-redux'
 import EnrollmentItemListComponent from './EnrollmentItemListComponent'
@@ -14,10 +14,6 @@ class SettingsView extends React.Component {
  render () {
    return (
      <View style={styles.container}>
-       <Toolbar>
-         <ToolbarContent title="Settings"/>
-
-       </Toolbar>
        <Modal visible={this.state.visibleEnrollMeImport} onDismiss={() => this.setState({ visibleEnrollMeImport: false })}>
          <ImportEnrollMeView onDismiss={this._hideEnrollMeModal} names={this.props.enrollments} />
        </Modal>
