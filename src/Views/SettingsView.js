@@ -37,6 +37,17 @@ class SettingsView extends React.Component {
            )
          }
        </View>
+       <View style={{
+         width: '100%',
+         alignItems: 'center'
+       }}>
+         <Paragraph>
+           Made with love by Michał Osadnik
+         </Paragraph>
+         <Paragraph>
+           Idea Factory, KN BIT
+         </Paragraph>
+       </View>
      </View>
    )
  }
@@ -46,7 +57,10 @@ const styles = StyleSheet.create({
   enrollmentCard: {
     flexDirection: 'row'
   },
-  container: {},
+  container: {
+    justifyContent: 'space-between',
+    flex: 1
+  },
   content: {
     padding: 8
   }
