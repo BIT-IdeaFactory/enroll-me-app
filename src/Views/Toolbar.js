@@ -1,12 +1,13 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View } from 'react-native'
 import {
-  DialogActions, DialogContent, DialogTitle, Switch, Text, Button, Toolbar as PaperToolbar,
+  DialogActions, DialogContent, DialogTitle, Button, Toolbar as PaperToolbar,
   ToolbarContent, ToolbarAction
 } from 'react-native-paper'
 import Dialog from 'react-native-paper/src/components/Dialog/Dialog'
 import { connect } from 'react-redux'
-import { setLastSelectedDay, toggleAB, toggleHalf } from '../actions/index'
+import { setLastSelectedDay, toggleAB } from '../actions/index'
+import { weekize } from './ViewsUtils'
 
 class Toolbar extends React.Component {
   state = {
@@ -35,30 +36,9 @@ class Toolbar extends React.Component {
           <DialogTitle>Which week should be shown</DialogTitle>
           <DialogContent>
             <View style={{ width: '70%', alignSelf: 'center' }}>
-              <View style={styles.switchWrapper}>
-                <Text>
-                  week A
-                </Text>
-                <Switch
-                  value={this.props.AB === 'B'}
-                  onValueChange={this.props.toggleAB}
-                />
-                <Text>
-                  week B
-                </Text>
-              </View>
-              <View style={styles.switchWrapper}>
-                <Text>
-                  1. half
-                </Text>
-                <Switch
-                  value={this.props.half === 2}
-                  onValueChange={this.props.toggleHalf}
-                />
-                <Text>
-                  2. half
-                </Text>
-              </View>
+              <Button flat onPress={this.props.toggleAB}>
+                {weekize(this.props.AB)}
+              </Button>
             </View>
           </DialogContent>
           <DialogActions>
@@ -67,9 +47,10 @@ class Toolbar extends React.Component {
           </DialogActions>
         </Dialog>
         <PaperToolbar>
-          <ToolbarContent title={CARD_MAPPING[this.props.card]} subtitle={this.props.card === 5 ? '' : `${this.props.half}. half, week ${this.props.AB}`}/>
-
           <ToolbarAction icon="event" onPress={this._getToday} />
+
+          <ToolbarContent title={CARD_MAPPING[this.props.card]} subtitle={weekize(this.props.AB)}/>
+
           <ToolbarAction icon="more-vert" onPress={this._toggleWeeksManager} />
         </PaperToolbar>
       </View>
@@ -77,9 +58,6 @@ class Toolbar extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  switchWrapper: { margin: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }
-})
 const CARD_MAPPING = {
   0: 'Monday',
   1: 'Tuesday',
@@ -91,13 +69,11 @@ const CARD_MAPPING = {
 
 const mapStateToProps = (state, props) => ({
   AB: state.appState.ab,
-  half: state.appState.half,
   card: state.appState.dayCard
 })
 
 const mapDispatchToProps = dispatch => ({
   toggleAB: () => dispatch(toggleAB()),
-  toggleHalf: () => dispatch(toggleHalf()),
   setDay: d => dispatch(setLastSelectedDay(d))
 })
 
