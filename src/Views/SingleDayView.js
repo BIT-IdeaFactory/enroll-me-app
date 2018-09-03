@@ -12,7 +12,7 @@ class SingleDayView extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <ScrollView style={{height: '100%'}}>
+        <ScrollView style={{ height: '100%' }}>
           {this.props.events.length === 0 && (
             <View style={{ justifyContent: 'center', alignItems: 'center', height: 128 }}>
               <Paragraph>
@@ -67,7 +67,7 @@ const mapStateToProps = (state, props) => {
   evs.sort((a, b) => a.startTime[0] === b.startTime[1] ? a.startTime[1] > b.startTime[1] : a.startTime[0] > b.startTime[0])
   return {
     events: evs,
-    AB: state.appState.ab,
+    AB: state.appState.ab
   }
 }
 
