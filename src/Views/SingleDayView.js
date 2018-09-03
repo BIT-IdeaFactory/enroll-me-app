@@ -74,7 +74,7 @@ class SingleDayView extends React.Component {
 
           <ToolbarAction icon="more-vert" onPress={this._toggleWeeksManager} />
         </Toolbar>
-        <ScrollView style={styles.container}>
+        <ScrollView contentContainerStyle={{ paddingBottom: 72 }}>
           {this.props.events.length === 0 && (
             <View style={{ justifyContent: 'center', alignItems: 'center', height: 128 }}>
               <Paragraph>
