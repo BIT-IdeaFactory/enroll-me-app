@@ -8,6 +8,8 @@ Release soon!
 
 ## Screens
 
+![](./readme-assets/iOSscreen.png)
+![](./readme-assets/androidscreen.png)
 
 ## Development
 
