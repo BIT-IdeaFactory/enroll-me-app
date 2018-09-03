@@ -16,11 +16,7 @@ export const toggleAB = () => ({
   type: 'TOGGLE_A_B'
 })
 
-export const toggleHalf = () => ({
-  type: 'TOGGLE_FIRST_SECOND'
-})
-
 export const setLastSelectedDay = idx => ({
-  type: 'SET_LAST_SELECTED_DAY',
+  type: 'SET_LAST_SELECTED_CARD',
   dayCard: idx
 })

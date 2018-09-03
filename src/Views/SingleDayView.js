@@ -2,9 +2,7 @@ import * as React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { connect } from 'react-redux'
 import { Caption, Headline, Paper, Paragraph } from 'react-native-paper'
-import { toggleAB, toggleHalf } from '../actions/index'
-
-const minutize = number => number < 10 ? `0${number}` : number
+import { minutize } from './ViewsUtils'
 
 class SingleDayView extends React.Component {
   state = {
@@ -14,7 +12,7 @@ class SingleDayView extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <ScrollView>
+        <ScrollView style={{height: '100%'}}>
           {this.props.events.length === 0 && (
             <View style={{ justifyContent: 'center', alignItems: 'center', height: 128 }}>
               <Paragraph>
@@ -70,18 +68,11 @@ const mapStateToProps = (state, props) => {
   return {
     events: evs,
     AB: state.appState.ab,
-    half: state.appState.half
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  toggleAB: () => dispatch(toggleAB()),
-  toggleHalf: () => dispatch(toggleHalf())
-})
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(SingleDayView)
 
 const styles = StyleSheet.create({
