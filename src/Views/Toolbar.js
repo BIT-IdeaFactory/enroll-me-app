@@ -1,9 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
-import {
-  DialogActions, DialogContent, DialogTitle, Button, Toolbar as PaperToolbar,
-  ToolbarContent, ToolbarAction
-} from 'react-native-paper'
+import { Button, Appbar, Portal } from 'react-native-paper'
 import Dialog from 'react-native-paper/src/components/Dialog/Dialog'
 import { connect } from 'react-redux'
 import { setLastSelectedDay, toggleAB } from '../actions/index'
@@ -30,29 +27,46 @@ class Toolbar extends React.Component {
   render () {
     return (
       <View>
-        <Dialog
-          visible={this.state.visibleWeeksManages}
-          onDismiss={this._hideDialog}>
-          <DialogTitle>Which week should be shown</DialogTitle>
-          <DialogContent>
-            <View style={{ width: '70%', alignSelf: 'center' }}>
-              <Button flat onPress={this.props.toggleAB}>
-                {weekize(this.props.AB)}
-              </Button>
-            </View>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              onPress={this._hideDialog}>Ok</Button>
-          </DialogActions>
-        </Dialog>
-        <PaperToolbar>
-          <ToolbarAction icon="event" onPress={this._getToday} />
+        <Portal>
+          <Dialog
+            visible={this.state.visibleWeeksManages}
+            onDismiss={this._hideDialog}>
+            <Dialog.Title>Which week should be shown</Dialog.Title>
+            <Dialog.Content>
+              <View style={{ width: '70%', alignSelf: 'center' }}>
+                <Button flat onPress={this.props.toggleAB}>
+                  {weekize(this.props.AB)}
+                </Button>
+              </View>
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button
+                onPress={this._hideDialog}>Ok</Button>
+            </Dialog.Actions>
+          </Dialog><Dialog
+            visible={this.state.visibleWeeksManages}
+            onDismiss={this._hideDialog}>
+            <Dialog.Title>Which week should be shown</Dialog.Title>
+            <Dialog.Content>
+              <View style={{ width: '70%', alignSelf: 'center' }}>
+                <Button flat onPress={this.props.toggleAB}>
+                  {weekize(this.props.AB)}
+                </Button>
+              </View>
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button
+                onPress={this._hideDialog}>Ok</Button>
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
+        <Appbar.Header>
+          <Appbar.Action icon="event" onPress={this._getToday} />
 
-          <ToolbarContent title={CARD_MAPPING[this.props.card]} subtitle={weekize(this.props.AB)}/>
+          <Appbar.Content title={CARD_MAPPING[this.props.card]} subtitle={weekize(this.props.AB)}/>
 
-          <ToolbarAction icon="more-vert" onPress={this._toggleWeeksManager} />
-        </PaperToolbar>
+          <Appbar.Action icon="more-vert" onPress={this._toggleWeeksManager} />
+        </Appbar.Header>
       </View>
     )
   }

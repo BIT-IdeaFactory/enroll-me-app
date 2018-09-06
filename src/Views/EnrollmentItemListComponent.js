@@ -1,8 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import {
-  Button, Card, Checkbox, Text, Dialog, Paragraph, DialogContent, DialogTitle,
-  DialogActions
+  Button, Card, Checkbox, Text, Dialog, Paragraph, Portal
 } from 'react-native-paper'
 import { connect } from 'react-redux'
 import { removeEnrollmentFromData, toggleEnrollmentSelection } from '../actions/index'
@@ -28,18 +27,20 @@ class EnrollmentItem extends React.Component {
   render () {
     return (
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Dialog
-          visible={this.state.visibleDialogRemoval}
-          onDismiss={this._hideDialog}>
-          <DialogTitle>Remove enrollment</DialogTitle>
-          <DialogContent>
-            <Paragraph>This operation could not be undone</Paragraph>
-          </DialogContent>
-          <DialogActions>
-            <Button onPress={this._hideDialog}>CANCEL</Button>
-            <Button onPress={this._confirmRemoval}>OK</Button>
-          </DialogActions>
-        </Dialog>
+        <Portal>
+          <Dialog
+            visible={this.state.visibleDialogRemoval}
+            onDismiss={this._hideDialog}>
+            <Dialog.Title>Remove enrollment</Dialog.Title>
+            <Dialog.Content>
+              <Paragraph>This operation could not be undone</Paragraph>
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={this._hideDialog}>CANCEL</Button>
+              <Button onPress={this._confirmRemoval}>OK</Button>
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
         <Card
           style={{ flex: 1 }}
           onPress={this._onPress}
@@ -47,7 +48,7 @@ class EnrollmentItem extends React.Component {
           <View style={{ flexDirection: 'row', padding: 4, alignItems: 'center' }}>
             <View style={{ width: 36, height: 36 }}>
               <Checkbox
-                checked={this.props.checked}
+                status={this.props.checked ? 'checked' : 'unchecked'}
                 onPress={this._onPress}
               />
             </View>

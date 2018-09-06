@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Button, Caption, Modal, Paragraph } from 'react-native-paper'
+import { Button, Caption, Modal, Paragraph, Portal } from 'react-native-paper'
 import ImportEnrollMeView from './ImportEnrollMeView'
 import { connect } from 'react-redux'
 import EnrollmentItemListComponent from './EnrollmentItemListComponent'
@@ -14,9 +14,11 @@ class SettingsView extends React.Component {
  render () {
    return (
      <View style={styles.container}>
-       <Modal visible={this.state.visibleEnrollMeImport} onDismiss={() => this.setState({ visibleEnrollMeImport: false })}>
-         <ImportEnrollMeView onDismiss={this._hideEnrollMeModal} names={this.props.enrollments} />
-       </Modal>
+       <Portal>
+         <Modal visible={this.state.visibleEnrollMeImport} onDismiss={() => this.setState({ visibleEnrollMeImport: false })}>
+           <ImportEnrollMeView onDismiss={this._hideEnrollMeModal} names={this.props.enrollments} />
+         </Modal>
+       </Portal>
        <View style={styles.content}>
          <Button raised onPress={() => this.setState({ visibleEnrollMeImport: true })}>
             Import schedule from enroll-me

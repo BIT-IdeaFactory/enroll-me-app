@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { connect } from 'react-redux'
-import { Caption, Headline, Paper, Paragraph } from 'react-native-paper'
+import { Caption, Headline, Surface, Paragraph } from 'react-native-paper'
 import { minutize } from './ViewsUtils'
 
 class SingleDayView extends React.Component {
@@ -27,7 +27,7 @@ class SingleDayView extends React.Component {
             const st = new Date(ev.startTime)
             const et = new Date(ev.endTime)
             return (
-              <Paper key={`ev${i}`} style={styles.paperEvent}>
+              <Surface key={`ev${i}`} style={styles.paperEvent}>
                 <Paragraph>
                   {`${st.getHours()}:${minutize(st.getMinutes())} - ${et.getHours()}:${minutize(et.getMinutes())} ${ev.weekType}`}
                 </Paragraph>
@@ -40,7 +40,7 @@ class SingleDayView extends React.Component {
                 <Caption>
                   {ev.teacher}
                 </Caption>
-              </Paper>
+              </Surface>
             )
           }
           )

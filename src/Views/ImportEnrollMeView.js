@@ -1,5 +1,5 @@
 import {
-  Button, Dialog, DialogActions, Paper, Paragraph, TextInput, DialogContent, Text
+  Button, Dialog, Surface, Paragraph, TextInput, Text
 } from 'react-native-paper'
 import * as React from 'react'
 import { View, WebView, StyleSheet, Alert } from 'react-native'
@@ -60,12 +60,12 @@ class ImportEnrollMeView extends React.Component {
         <Dialog
           visible={this.state.visibleDialog}
           onDismiss={() => { this.setState({ visibleDialog: false }); this.props.onDismiss() }}>
-          <DialogContent>
+          <Dialog.Content>
             <Text>
               Select name for your enrollment
             </Text>
-          </DialogContent>
-          <DialogActions style={{ alignItems: 'center' }}>
+          </Dialog.Content>
+          <Dialog.Actions style={{ alignItems: 'center' }}>
             <Button onPress={() => {
               this.setState({
                 visibleDialog: false,
@@ -81,14 +81,14 @@ class ImportEnrollMeView extends React.Component {
               value={this.state.text}
               onChangeText={text => this.setState({ text })}
             />
-          </DialogActions>
+          </Dialog.Actions>
         </Dialog>
-        <Paper style={{ padding: 4 }}>
+        <Surface style={{ padding: 4 }}>
           <Paragraph>
             In order to import navigate to your schedule and press PARSE when your schedule will be visible on page.
             Then choose name for your timetable
           </Paragraph>
-        </Paper>
+        </Surface>
         <WebView
           onMessage={({ nativeEvent: { data: messageData } }) => {
             if (messageData.length !== 15) {
