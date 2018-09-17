@@ -1,8 +1,6 @@
-import {
-  Button, Dialog, Surface, Paragraph, TextInput, Text
-} from 'react-native-paper'
+import { Button, Dialog, Paragraph, Portal, Surface, Text, TextInput } from 'react-native-paper'
 import * as React from 'react'
-import { View, WebView, StyleSheet, Alert } from 'react-native'
+import { Alert, StyleSheet, View, WebView } from 'react-native'
 import { addEnrollmentToData, toggleEnrollmentSelection } from '../actions/index'
 import { connect } from 'react-redux'
 
@@ -57,32 +55,37 @@ class ImportEnrollMeView extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <Dialog
-          visible={this.state.visibleDialog}
-          onDismiss={() => { this.setState({ visibleDialog: false }); this.props.onDismiss() }}>
-          <Dialog.Content>
-            <Text>
-              Select name for your enrollment
-            </Text>
-          </Dialog.Content>
-          <Dialog.Actions style={{ alignItems: 'center' }}>
-            <Button onPress={() => {
-              this.setState({
-                visibleDialog: false,
-                text: ''
-              })
-            }}>Cancel</Button>
-            <Button
-              disabled = {this.state.text === ''}
-              onPress={this._saveToMemory}>Ok</Button>
-            <TextInput
-              style={{ flex: 1, paddingBottom: 30 }}
-              label='name'
-              value={this.state.text}
-              onChangeText={text => this.setState({ text })}
-            />
-          </Dialog.Actions>
-        </Dialog>
+        <Portal>
+          <Dialog
+            visible={this.state.visibleDialog}
+            onDismiss={() => {
+              this.setState({ visibleDialog: false })
+              this.props.onDismiss()
+            }}>
+            <Dialog.Content>
+              <Text>
+                Select name for your enrollment
+              </Text>
+            </Dialog.Content>
+            <Dialog.Actions style={{ alignItems: 'center' }}>
+              <Button onPress={() => {
+                this.setState({
+                  visibleDialog: false,
+                  text: ''
+                })
+              }}>Cancel</Button>
+              <Button
+                disabled={this.state.text === ''}
+                onPress={this._saveToMemory}>Ok</Button>
+              <TextInput
+                style={{ flex: 1, paddingBottom: 30 }}
+                label='name'
+                value={this.state.text}
+                onChangeText={text => this.setState({ text })}
+              />
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
         <Surface style={{ padding: 4 }}>
           <Paragraph>
             In order to import navigate to your schedule and press PARSE when your schedule will be visible on page.
