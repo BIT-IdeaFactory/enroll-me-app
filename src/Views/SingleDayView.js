@@ -77,8 +77,9 @@ export default connect(
 
 const styles = StyleSheet.create({
   paperEvent: {
-    elevation: 8,
-    margin: 14,
+    elevation: 4,
+    margin: 12,
+    marginBottom: 0,
     padding: 12
   }
 })
