@@ -777,6 +777,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = J5FM626PE2;
+						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1335,6 +1336,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = J5FM626PE2;
@@ -1349,7 +1352,10 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.osdnk.enroll;
 				PRODUCT_NAME = enrollapp;
+				PROVISIONING_PROFILE = "b9ba2b3d-710c-4aa4-80f5-b414879559a8";
+				PROVISIONING_PROFILE_SPECIFIER = osdnk;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1359,6 +1365,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J5FM626PE2;
 				HEADER_SEARCH_PATHS = (
@@ -1372,7 +1380,10 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.osdnk.enroll;
 				PRODUCT_NAME = enrollapp;
+				PROVISIONING_PROFILE = "b9ba2b3d-710c-4aa4-80f5-b414879559a8";
+				PROVISIONING_PROFILE_SPECIFIER = osdnk;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
