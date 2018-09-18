@@ -14,18 +14,19 @@
         <view clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="834" height="1092"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="splash.png" translatesAutoresizingMaskIntoConstraints="NO" id="kQJ-ah-0eD">
+                    <rect key="frame" x="163" y="148" width="508" height="796"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.25490196078431371" green="0.18431372549019609" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                </imageView>
+            </subviews>
             <color key="backgroundColor" red="0.25490196078431371" green="0.18431372549019609" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <nil key="simulatedStatusBarMetrics"/>
             <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="546.5" y="454"/>
         </view>
-        <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash.png" id="kQJ-ah-0eD">
-            <rect key="frame" x="0.0" y="0.0" width="508" height="796"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" red="0.25490196078431371" green="0.18431372549019609" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-            <point key="canvasLocation" x="546" y="462"/>
-        </imageView>
     </objects>
     <resources>
         <image name="splash.png" width="2119" height="816"/>
