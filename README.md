@@ -1,10 +1,9 @@
 # Enroll-me
-Enroll-me is internal tool for students of Faculty of Computer Science, Electornics and Telecomunication. 
+Enroll-me is an internal tool for students of the Faculty of Computer Science, Electronics and Telecommunication. 
 
-This tool is an offline previewer which allows to look-up schedule and import enrollment (via static website's analize)
+This tool is an offline previewer which allows to look up schedule and import enrollment (via static website's analize).
 
-PRs and issues are very welcome! 
-Release soon!
+PRs and issues are very welcome! Release is scheduled soon!
 
 ## Screens
 
@@ -20,7 +19,7 @@ Release soon!
 yarn
 ```
 
-*Before run android build, setup [Android Studio](https://facebook.github.io/react-native/docs/android-setup.html)*
+*Before running the android build, setup [Android Studio](https://facebook.github.io/react-native/docs/android-setup.html)*
 
 **Step 3:** If Android
 
@@ -36,6 +35,6 @@ react-native run-android
 react-native run-ios
 ```
 
-That's all
+That's all!
 
-If you want to install app in the device, connect your device to the system with debugger mode on and run the above command (app will be installed automatically)
+If you want to install the app on a device, connect it to your machine with debugger mode turned on (for Android) and follow the steps above. The app will install itself automatically.
