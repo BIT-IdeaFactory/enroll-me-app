@@ -64,7 +64,7 @@ const mapStateToProps = (state, props) => {
       }
     }
   }
-  evs.sort((a, b) => a.startTime > b.startTime)
+  evs.sort((a, b) => a.startTime - b.startTime)
   return {
     events: evs,
     AB: state.appState.ab
