@@ -27,7 +27,7 @@ class SingleDayView extends React.Component {
             const st = new Date(ev.startTime)
             const et = new Date(ev.endTime)
             return (
-              <Surface key={`ev${i}`} style={styles.paperEvent}>
+              <Surface key={`ev${i}`} style={[styles.paperEvent, { marginTop: i == 0 ? 12 : 0 }]}>
                 <Paragraph>
                   {`${st.getHours()}:${minutize(st.getMinutes())} - ${et.getHours()}:${minutize(et.getMinutes())} ${ev.weekType}`}
                 </Paragraph>
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   paperEvent: {
     elevation: 4,
     margin: 12,
-    marginBottom: 0,
+    marginTop: 0,
     padding: 12
   }
 })
