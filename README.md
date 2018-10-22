@@ -3,7 +3,7 @@ Enroll-me is an internal tool for students of the Faculty of Computer Science, E
 
 This tool is an offline previewer which allows to look up schedule and import enrollment (via static website's analize).
 
-PRs and issues are very welcome! Release is scheduled soon!
+PRs and issues are very welcome! 
 
 ## Screens
 
